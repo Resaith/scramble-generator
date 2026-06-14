@@ -1,0 +1,2 @@
+# scramble-generator
+SCRAMBLE TO PRACTICE THE LOOK AHEAD
