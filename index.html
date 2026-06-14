@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Scramble Generator</title>
+  <style>
+    body {
+      background: #111;
+      color: white;
+      font-family: Arial;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    #scramble {
+      font-size: 24px;
+      text-align: center;
+      margin-top: 20px;
+      max-width: 80%;
+    }
+    .hint {
+      opacity: 0.6;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hint">Presiona ESPACIO para nuevo scramble</div>
+  <div id="scramble">R U R' U'</div>
+
+  <script>
+    const moves = ["R","R'","R2","L","L'","L2","U","U'","U2","D","D'","D2","F","F'","F2","B","B'","B2"];
+
+    function randomScramble(length = 20) {
+      let scramble = [];
+      let lastAxis = "";
+
+      const axis = {
+        R: "RL", L: "RL",
+        U: "UD", D: "UD",
+        F: "FB", B: "FB"
+      };
+
+      while (scramble.length < length) {
+        let move = moves[Math.floor(Math.random() * moves.length)];
+        let face = move[0];
+
+        // evitar repetir mismo eje seguido
+        if (axis[face] === lastAxis) continue;
+
+        scramble.push(move);
+        lastAxis = axis[face];
+      }
+
+      return scramble.join(" ");
+    }
+
+    function newScramble() {
+      document.getElementById("scramble").innerText = randomScramble(20);
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.code === "Space") {
+        newScramble();
+      }
+    });
+  </script>
+
+</body>
+</html>
